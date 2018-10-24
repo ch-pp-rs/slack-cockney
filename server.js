@@ -25,7 +25,8 @@ router.use(function (req, res, next) {
 });
 
 router.route('/cockney').get(function (req, res) {
-    res.sendStatus(200)
+    res.status(200);
+    res.json({});
 }).post(bodyParser.urlencoded({extended: true}), function (req, res) {
     var VERIFY_TOKEN = process.env.SLACK_KEY;
 
