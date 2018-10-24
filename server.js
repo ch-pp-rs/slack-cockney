@@ -4,38 +4,38 @@
 // =============================================================================
 
 // call the packages we need
-let express = require('express');        // call express
-let app = express();                 // define our app using express
-let bodyParser = require('body-parser');
+var express = require('express');        // call express
+var app = express();                 // define our app using express
+var bodyParser = require('body-parser');
 
 // configure app to use bodyParser()
-// this will let us get the data from a POST
+// this will var us get the data from a POST
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-let port = process.env.PORT || 8888;        // set our port
+var port = process.env.PORT || 8888;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
-let router = express.Router();
+var router = express.Router();
 
 // middleware to use for all requests
 router.use(function (req, res, next) {
     next();
 });
 
-router.route('/').get(function (req, res) {
+router.route('/cockney').get(function (req, res) {
     res.sendStatus(200)
 }).post(bodyParser.urlencoded({extended: true}), function (req, res) {
-    let VERIFY_TOKEN = process.env.SLACK_KEY;
+    var VERIFY_TOKEN = process.env.SLACK_KEY;
 
     if (req.body.token !== VERIFY_TOKEN) {
         return res.sendStatus(401);
     }
 
-    let searchString = req.body.text.split(' ').join('+');
-    let words = req.body.text.split(' ');
-    let cockney = {
+    var searchString = req.body.text.split(' ').join('+');
+    var words = req.body.text.split(' ');
+    var cockney = {
         'arm': ['chalk'],
         'arse': ['bottle and glass'],
         'believe': ['Adam and Eve'],
@@ -63,16 +63,16 @@ router.route('/').get(function (req, res) {
         'walk': ['ball of chalk'],
         'wife': ['trouble and strife']
     };
-    let message = '';
+    var message = '';
 
     words.forEach(function (word) {
-        let translations;
+        var translations;
 
         word = word.replace(/\W/g, '');
         translations = cockney[word];
 
         if (translations) {
-            let randomResponseIndex = Math.floor(Math.random() * translations.length);
+            var randomResponseIndex = Math.floor(Math.random() * translations.length);
 
             message += translations[randomResponseIndex];
         } else {
